@@ -1,0 +1,17 @@
+create database olympics; 
+
+use olympics;
+
+set hive.cli.print.current.db=true;
+
+create table if not exists athelete(ath_name string, athage int, country string, year int, close_date string, sports string, gold int, silver int, bronze int, total int) row format delimited fields terminated by '\t' lines terminated by '\n' stored as textfile;
+
+load data local inpath 'olympix_data.csv' into table athelete;
+
+select count(total), country from athelete where sports='Swimming' group by country;
+
+select count(total), year from athelete where country='India' group by year;
+
+select count(total), country from athelete group by country;
+
+select count(gold), country from athelete group by country;
